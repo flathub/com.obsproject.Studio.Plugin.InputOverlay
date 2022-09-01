@@ -2,30 +2,24 @@ id: com.obsproject.Studio.Plugin.InputOverlay
 branch: beta
 runtime: com.obsproject.Studio
 runtime-version: beta
-sdk: org.kde.Sdk//5.15
+sdk: org.kde.Sdk//6.3
 build-extension: true
 separate-locales: false
 appstream-compose: false
 build-options:
   prefix: /app/plugins/InputOverlay
 modules:
-  - name: libuiohook
-    buildsystem: autotools
-    sources:
-      - type: git
-        url: https://github.com/kwhat/libuiohook.git
-        commit: 57630b7036becb8fa8ed65903ae994eda50a72f6
   - name: input-overlay
     buildsystem: cmake-ninja
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
-      - -DLIBOBS_INCLUDE_DIR=/app/include/obs
+      - -DLINUX_PORTABLE=off
     post-install:
       - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_ID}.metainfo.xml
       - appstream-compose --basename=${FLATPAK_ID} --prefix=${FLATPAK_DEST} --origin=flatpak ${FLATPAK_ID}
     sources:
       - type: git
         url: https://github.com/univrsal/input-overlay.git
-        commit: 94019421573978924d247e7b4a4a98c04441cd25
+        commit: 828190fc2632772ee1f87f32f14566e4a746d025
       - type: file
         path: com.obsproject.Studio.Plugin.InputOverlay.metainfo.xml
