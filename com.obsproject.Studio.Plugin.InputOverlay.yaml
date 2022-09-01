@@ -1,7 +1,7 @@
 id: com.obsproject.Studio.Plugin.InputOverlay
-branch: beta
+branch: stable
 runtime: com.obsproject.Studio
-runtime-version: beta
+runtime-version: stable
 sdk: org.kde.Sdk//6.3
 build-extension: true
 separate-locales: false
