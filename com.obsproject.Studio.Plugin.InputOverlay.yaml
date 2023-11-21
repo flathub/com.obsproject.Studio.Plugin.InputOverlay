@@ -20,6 +20,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/univrsal/input-overlay.git
-        commit: 828190fc2632772ee1f87f32f14566e4a746d025
+        tag: v5.0.4
+        commit: 5f18f42ecbb599b42ce0c4002a434835dd474cb0
       - type: file
         path: com.obsproject.Studio.Plugin.InputOverlay.metainfo.xml
