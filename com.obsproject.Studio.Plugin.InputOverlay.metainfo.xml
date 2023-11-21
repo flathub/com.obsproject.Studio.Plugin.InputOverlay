@@ -2,7 +2,7 @@
 <component type="addon">
   <id>com.obsproject.Studio.Plugin.InputOverlay</id>
   <extends>com.obsproject.Studio</extends>
-  <name>Input Overlay Plugin</name>
+  <name>Input Overlay</name>
   <summary>Show keyboard, gamepad and mouse input on stream</summary>
   <url type="homepage">https://github.com/univrsal/input-overlay</url>
   <metadata_license>CC0-1.0</metadata_license>
