@@ -2,7 +2,7 @@ id: com.obsproject.Studio.Plugin.InputOverlay
 branch: stable
 runtime: com.obsproject.Studio
 runtime-version: stable
-sdk: org.kde.Sdk//6.3
+sdk: org.kde.Sdk//6.5
 build-extension: true
 separate-locales: false
 appstream-compose: false
@@ -20,6 +20,20 @@ modules:
     sources:
       - type: git
         url: https://github.com/univrsal/input-overlay.git
-        commit: 828190fc2632772ee1f87f32f14566e4a746d025
+        tag: v5.0.4
+        commit: 5f18f42ecbb599b42ce0c4002a434835dd474cb0
+        disable-submodules: true # TODO: To remove next version
+        x-checker-data:
+          type: git
+          tag-pattern: ^v([\d.]+)
       - type: file
         path: com.obsproject.Studio.Plugin.InputOverlay.metainfo.xml
+      # TODO: To remove next version
+      - type: git
+        dest: libuiohook
+        url: https://github.com/univrsal/libuiohook.git
+        commit: 63f62e0f5745b00a7c26930bbf5431760491f20e
+      - type: shell
+        commands:
+          - git config submodule.deps/libuiohook.url libuiohook
+          - git -c protocol.file.allow=always submodule update
