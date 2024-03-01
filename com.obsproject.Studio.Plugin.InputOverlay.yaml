@@ -16,12 +16,13 @@ modules:
       - -DLINUX_PORTABLE=off
     post-install:
       - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_ID}.metainfo.xml
-      - appstream-compose --basename=${FLATPAK_ID} --prefix=${FLATPAK_DEST} --origin=flatpak ${FLATPAK_ID}
+      - appstream-compose --basename=${FLATPAK_ID} --prefix=${FLATPAK_DEST} --origin=flatpak
+        ${FLATPAK_ID}
     sources:
       - type: git
         url: https://github.com/univrsal/input-overlay.git
-        tag: v5.0.4
-        commit: 5f18f42ecbb599b42ce0c4002a434835dd474cb0
+        tag: v5.0.5
+        commit: e90e7e99ce2ec2005e9d05b25445cf2db4f54522
         disable-submodules: true # TODO: To remove next version
         x-checker-data:
           type: git
