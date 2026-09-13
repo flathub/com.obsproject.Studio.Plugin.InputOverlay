@@ -2,7 +2,7 @@ id: com.obsproject.Studio.Plugin.InputOverlay
 branch: stable
 runtime: com.obsproject.Studio
 runtime-version: stable
-sdk: org.kde.Sdk//6.5
+sdk: org.freedesktop.Sdk//25.08
 build-extension: true
 separate-locales: false
 appstream-compose: false
@@ -10,31 +10,29 @@ build-options:
   prefix: /app/plugins/InputOverlay
 modules:
   - name: input-overlay
+    builddir: true          # configure and build in _flatpak_build/ instead of in-source
     buildsystem: cmake-ninja
     config-opts:
       - -DCMAKE_BUILD_TYPE=Release
       - -DLINUX_PORTABLE=off
+      - -DCMAKE_PREFIX_PATH=/app
     post-install:
-      - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_ID}.metainfo.xml
-      - appstream-compose --basename=${FLATPAK_ID} --prefix=${FLATPAK_DEST} --origin=flatpak
-        ${FLATPAK_ID}
+      - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_BUILDER_BUILDDIR}/${FLATPAK_ID}.metainfo.xml
+      - appstreamcli compose --components=${FLATPAK_ID} --prefix=${FLATPAK_DEST} --origin=flatpak /
     sources:
       - type: git
         url: https://github.com/univrsal/input-overlay.git
-        tag: v5.0.5
-        commit: e90e7e99ce2ec2005e9d05b25445cf2db4f54522
-        disable-submodules: true # TODO: To remove next version
+        tag: 5.0.6
+        commit: c99a526a204b52decd816f0d2e18a7ecfa07b7fb
+        disable-submodules: true # disable because git tries to checkout to a non-existing commit
         x-checker-data:
           type: git
           tag-pattern: ^v([\d.]+)
+
+      - type: git
+        dest: deps/libuiohook          # populate the submodule path ourselves
+        url: https://github.com/univrsal/libuiohook.git
+        commit: bee164726dc62e8f8c3a1a4a778164ce8a769143
+
       - type: file
         path: com.obsproject.Studio.Plugin.InputOverlay.metainfo.xml
-      # TODO: To remove next version
-      - type: git
-        dest: libuiohook
-        url: https://github.com/univrsal/libuiohook.git
-        commit: 63f62e0f5745b00a7c26930bbf5431760491f20e
-      - type: shell
-        commands:
-          - git config submodule.deps/libuiohook.url libuiohook
-          - git -c protocol.file.allow=always submodule update
